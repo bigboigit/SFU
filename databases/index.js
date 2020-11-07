@@ -37,7 +37,33 @@ const knex = require('knex')({
 
   // put more tables here
 
+  if (!await knex.schema.hasTable('users')) {
+    await knex.schema.createTable('users', table => {
+      table.increments('id');
+      table.string('username').notNullable();
+      table.string('password').notNullable();
+      table.integer('credits');
+    });
+  }
 
+  if (!await knex.schema.hasTable('inventory')) {
+    await knex.schema.createTable('inventory', table => {
+      table.increments('id');
+      table.integer('owner');
+      table.foreign('owner').references("users.id");
+      table.integer('friend');
+      table.foreign('friend').references("users.id");
+    });
+  }
+
+  if (!await knex.schema.hasTable('market')) {
+    await knex.schema.createTable('market', table => {
+      table.increments('id');
+      table.integer('friendship');
+      table.foreign('friendship').references("inventory.id");
+      table.integer('price');
+    });
+  }
 
 })().catch(err => {
   console.error(err);
