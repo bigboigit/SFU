@@ -5,7 +5,7 @@ const users = require('./market');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: "Let's Exchange A Friend (LEAF)" });
 });
 
 router.get('/login', function(req, res, next) {

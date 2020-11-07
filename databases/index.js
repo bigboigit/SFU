@@ -26,13 +26,20 @@ const knex = require('knex')({
       testcolumn2: true
     });
   }
-  knex('test')
+  await knex('test')
     .select('testcolumn')
     .where({
       testcolumn2: true
     })
     .then(result => {
       console.log("database test result: ", result);
+    })
+    .then(() => {
+      return knex.schema.dropTableIfExists('test');
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
     });
 
   // put more tables here
