@@ -5,6 +5,26 @@ const knex = require('../databases')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  // owner table
+  knex('market')
+    .join('market.friendship', '=', 'inventory.id')
+    .join('inventory.owner', '=', 'users.id')
+    .select('market.id', 'users.username','market.price')
+  
+  // friend table
+  knex('market')
+    .join('market.friendship', '=', 'inventory.id')
+    .join('inventory.friend', '=', 'users.id')
+    .select('market.id',
+            'users.username', 
+            'users.gpa', 
+            'users.program', 
+            'users.hobbies', 
+            'users.personailty', 
+            'users.city', 
+            'users.country', 
+            'market.price')
+
   res.render('market', {
     title: 'Log in'
   });
