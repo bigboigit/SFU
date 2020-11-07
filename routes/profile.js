@@ -10,4 +10,11 @@ router.get('/:pid', function(req, res, next) {
   });
 });
 
+/* GET user's own profile */
+router.get('/', function(req, res, next) {
+  res.render('profile', {
+    title: 'Profile Page'
+  });
+});
+
 module.exports = router;
