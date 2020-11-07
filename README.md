@@ -12,7 +12,7 @@ First, you need:
 - a web browser
 
 ```bash
-cd sfu-hackathon-2020
+cd <the folder with this stuff>
 npm i
 node start
 ```
