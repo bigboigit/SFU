@@ -47,7 +47,7 @@ const knex = require('knex')({
   if (!await knex.schema.hasTable('users')) {
     await knex.schema.createTable('users', table => {
       table.increments('id');
-      table.string('username').notNullable();
+      table.string('username').notNullable().unique();
       table.string('password').notNullable();
       table.integer('credits');
 
