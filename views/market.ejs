@@ -3,9 +3,12 @@
 <div class="container">
   <h1>Project Marketplace</h1>
 
-<!-- <% for(let i=0; i<market.length; i++) {%>
-<li><%= JSON.stringify(market[i]) %></li>
-<% } %> -->
+  <div>
+    <% for(let i=0; i<friends.length; i++) {%>
+    <li><%= JSON.stringify(friends[i]) %></li>
+    <li><%= JSON.stringify(owners[i]) %></li>
+    <% } %>
+  </div>
 
 </div>
 <%- include('footer') -%>
