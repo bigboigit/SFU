@@ -9,6 +9,8 @@ const knex = require('knex')({
 });
 
 (async () => {
+
+  // test table
   if (!await knex.schema.hasTable('test')) {
     await knex.schema.createTable('test', table => {
       table.increments('id');
@@ -32,6 +34,11 @@ const knex = require('knex')({
     .then(result => {
       console.log("database test result: ", result);
     });
+
+  // put more tables here
+
+
+
 })().catch(err => {
   console.error(err);
   process.exit(1)
