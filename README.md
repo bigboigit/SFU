@@ -14,7 +14,7 @@ First, you need:
 ```bash
 cd <the folder with this stuff>
 npm i
-node start
+npm run dev
 ```
 
 Then open <http://localhost:3000> in your browser
