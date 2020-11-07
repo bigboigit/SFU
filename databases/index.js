@@ -43,6 +43,16 @@ const knex = require('knex')({
       table.string('username').notNullable();
       table.string('password').notNullable();
       table.integer('credits');
+
+      table.float('gpa').notNullable();
+      table.string('program').notNullable();
+      // string array
+      // based off nubmer of user's hits
+      table.specificType('hobbies', 'text[]').notNullable();
+      table.string('personality').notNullable();
+      // calculating distance might be a yikes.
+      table.string('city').notNullable();
+      table.string('country').notNullable();
     });
   }
 
