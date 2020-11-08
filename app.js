@@ -3,6 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport');
+var flash = require('express-flash');
+var session = require('express-session');
+var initializePassport = require('./auth');
+initializePassport(passport);
 
 var indexRouter = require('./routes/index');
 var marketRouter = require('./routes/market');
@@ -22,9 +27,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+function checkNotAuthenticated(req, res, next) {
+  if(req.isAuthenticated()){
+    return next();
+  }
+  res.redirect('/login');
+}
+app.use( (req, res, next) => {
+    res.locals.passport = passport;
+    next()
+  }
+)
 app.use('/', indexRouter);
-app.use('/market', marketRouter);
-app.use('/profile', profileRouter);
+app.use('/market', checkNotAuthenticated, marketRouter);
+app.use('/profile', checkNotAuthenticated, profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
