@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const users = require('./market');
+const knex = require('../databases');
 
 function checkAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
@@ -19,19 +19,21 @@ router.get('/login', checkAuthenticated, function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  console.log(Object.keys(req.body));
   res.locals.passport.authenticate("local", function(err, user, info) {
     console.log(err, user);
     if(err){
+      req.flash('info', "Username or password is incorrect");
       return next(err);
     }
     if(!user){
-      return res.render('login', {messages: "Username or password is incorrect"});
+      req.flash('info', "Username or password is incorrect");
+      return res.redirect('/login');
     }
     req.logIn(user, function(err) {
       if(err){
         return next(err);
       }
+      req.flash('info', 'You are logged in');
       return res.redirect('/market'); //or whichever page should be the first page
     })
   })(req, res, next);
@@ -39,8 +41,9 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   req.logOut();
+  req.flash('info', 'You are logged out');
   res.redirect('/');
-})
+});
 router.get('/signup', checkAuthenticated, function(req, res, next) {
   res.render('signup', { title: 'Sign up'});
 });
@@ -73,9 +76,10 @@ router.post('/signup', function(req, res, next) {
     extravert:     req.body.extravert,
     neurotic:      req.body.neurotic,
     open:          req.body.open
+  }).then(result => {
+    req.flash('info', 'Please log in');
+    res.redirect('/login');
   })
 });
-
-router.use(users);
 
 module.exports = router;
