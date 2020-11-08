@@ -1,46 +1,51 @@
 var express = require('express');
 var router = express.Router();
 
-const users = require('./market');
+const knex = require('../databases');
 
 function checkAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
-    return res.redirect('/market') //On succesful login redirect to first page
+    return res.redirect('/'); //On succesful login redirect to first page
   }
   next();
 }
 /* GET home page. */
-router.get('/', checkAuthenticated, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: "Let's Exchange A Friend (LEAF)" });
 });
 
-router.get('/login', checkAuthenticated, function(req, res, next) {
+router.get('/login', function(req, res, next) {
   res.render('login', { title: "Log in" });
 });
 
 router.post('/login', function(req, res, next) {
-  console.log(Object.keys(req.body));
   res.locals.passport.authenticate("local", function(err, user, info) {
     console.log(err, user);
     if(err){
+      req.flash('info', "Username or password is incorrect");
       return next(err);
     }
     if(!user){
-      return res.render('login', {messages: "Username or password is incorrect"});
+      req.flash('info', "Username or password is incorrect");
+      return res.redirect('/login');
     }
     req.logIn(user, function(err) {
       if(err){
         return next(err);
       }
-      return res.redirect('/market'); //or whichever page should be the first page
+      req.flash('info', 'You are logged in');
+      const redirect = req.session.redirectTo;
+      delete req.session.redirectTo;
+      return res.redirect(redirect || '/'); //or whichever page should be the first page
     })
   })(req, res, next);
 });
 
 router.get('/logout', function(req, res, next) {
   req.logOut();
+  req.flash('info', 'You are logged out');
   res.redirect('/');
-})
+});
 router.get('/signup', checkAuthenticated, function(req, res, next) {
   res.render('signup', { title: 'Sign up'});
 });
@@ -52,7 +57,7 @@ router.post('/signup', function(req, res, next) {
     const hobbies = [req.body.hobby1, req.body.hobby2, req.body.hobby3]
   knex ('users').insert({
     username:      req.body.uname,
-    password:      req.body.passwd,
+    password:      req.body.psw,
     credits:       req.body.credits,
     gpa:           req.body.gpa,
     program:       req.body.program,
@@ -74,9 +79,10 @@ router.post('/signup', function(req, res, next) {
     extravert:     req.body["Preferred GPA"][2][2],
     neurotic:      req.body["Preferred GPA"][2][3],
     open:          req.body["Preferred GPA"][2][4]
+  }).then(result => {
+    req.flash('info', 'Please log in');
+    res.redirect('/login');
   })
 });
-
-router.use(users);
 
 module.exports = router;

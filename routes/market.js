@@ -51,14 +51,19 @@ router.post('/buy', function (req, res, next) {
 
   console.log(req.body);
 
-  return res.redirect('/');
-
-  knex('market').where('id', req.body.marketid).del()
-
-  knex('inventory').insert({
-    owner: req.user.id,
-    friend: req.body.friend
-  });
+  knex('market')
+    .where('id', req.body.marketid)
+    .del()
+    .then(result => {
+      return knex('inventory').insert({
+        owner: req.user.id,
+        friend: req.body.friend
+      });
+    })
+    .then(result => {
+      req.flash('info', 'You bought them');
+      return res.redirect('/profile');
+    });
 });
 
 // put on marketplace

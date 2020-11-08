@@ -41,6 +41,8 @@ app.use(flash());
 function checkNotAuthenticated(req, res, next) {
   if(req.isAuthenticated()){
     return next();
+  } else {
+    req.session.redirectTo = req.originalUrl;
   }
   res.redirect('/login');
 }
@@ -48,7 +50,15 @@ app.use( (req, res, next) => {
     res.locals.passport = passport;
     next()
   }
-)
+);
+app.use((req, res, next) => {
+  res.locals.user = null;
+  if (req.user) {
+    res.locals.user = req.user;
+  }
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/market', checkNotAuthenticated, marketRouter);
 app.use('/profile', checkNotAuthenticated, profileRouter);

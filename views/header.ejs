@@ -15,7 +15,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="favicon.jpg" type="image/jpg"/>
+  <link rel="icon" href="favicon.jpg" type="image/jpg" />
   <title>Let's Exchange A Friend</title>
 </head>
 
@@ -39,6 +39,13 @@
           <a class="nav-link" href="/profile">Profile</a>
         </li>
       </ul>
-      <a class="btn btn-outline-success my-2 my-sm-0" href="/login">Log in/Register</a>
+      <% if (user) { %>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="/logout">Log out</a>
+      <% } else { %>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="/login">Log in/Register</a>
+      <% } %>
     </div>
   </nav>
+  <% if (messages.info) { %>
+  <span><%- messages.info -%></span>
+  <% } %>
