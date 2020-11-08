@@ -14,7 +14,7 @@ router.get('/', async function (req, res, next) {
       'inventory.owner': 'users.id'
     })
     .select('market.id', 'users.username', 'market.price')
-    .orderBy('id', 'asc');
+    .orderBy('market.id', 'asc');
 
   // friend table
   const friends = await knex('market')
@@ -25,6 +25,7 @@ router.get('/', async function (req, res, next) {
       'inventory.friend': 'users.id'
     })
     .select('market.id',
+      'users.id as user_id',
       'users.username',
       'users.gpa',
       'users.program',
@@ -33,7 +34,7 @@ router.get('/', async function (req, res, next) {
       'users.city',
       'users.country',
       'market.price')
-    .orderBy('id', 'asc');
+    .orderBy('market.id', 'asc');
 
   res.render('market', {
     owners: owners,
@@ -47,12 +48,17 @@ router.post('/buy', function (req, res, next) {
      DROP previous transaction of previous owner 
      update credit of buyer and seller
      */
-  knex('market').where('id', req.query.id).del()
+
+  console.log(req.body);
+
+  res.redirect('/');
+
+  knex('market').where('id', req.body.id).del()
 
   knex('inventory').insert({
-    owner: req.query.purchaser,
-    friend: req.query.friend
-  })
+    owner: req.user.id,
+    friend: req.body.friend
+  });
 });
 
 // put on marketplace
