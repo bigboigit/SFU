@@ -55,8 +55,8 @@
 <body>
     <form action="/market/sell" method="POST" id="form-sell">
         <label for="price"> Choose a price to sell the friend
-        <input type="number" name="price" id="price" required>
-        <input type="hidden" name="friend" id="friend">
+            <input type="number" name="price" id="price" required>
+            <input type="hidden" name="friend" id="friend">
     </form>
     <% if(me) { %>
     <!--My card-->
@@ -154,7 +154,11 @@
         const buttons = document.querySelectorAll('.sell-button').forEach(button => {
             document.getElementById('friend').value = button.dataset.friend;
             button.addEventListener('click', e => {
-                document.getElementById('form-sell').submit();
+                if (!document.getElementById('price').value) {
+                    return;
+                }
+                const form = document.getElementById('form-sell');
+                form.submit();
             });
         });
     });
