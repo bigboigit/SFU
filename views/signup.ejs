@@ -1,0 +1,67 @@
+<%- include('header') -%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/stylesheets/signup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <h1 id="appTitle">Sign Up</h1>
+
+    <form action="/signup" method="post">
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+          
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="confpsw"><b>Confirm Password</b></label>
+            <input type="conf_password" placeholder="Confirm Password" name="confpsw" required>
+
+            <label for="gpa"><b>GPA</b></label>
+            <input type="gpa" placeholder="GPA" name="gpa" required>
+
+            <label for="gpaScale"><b>GPA Scale</b></label>
+            <input type="gpa" placeholder="GPA" name="gpaScale" required>
+        
+            <label for="gpa"><b>Select your Faculty</b></label>
+            <select type="text" id="dropBox" onchange="changeSelect()"> 
+                <option value="1">Applied Science</option>
+                <option value="2">Arts and Social Sciences</option>
+                <option value="3">Business</option>
+                <option value="4">Communication, Art, and Technology</option>
+                <option value="5">Education</option>
+                <option value="6">Environment</option>
+                <option value="7">Health Sciences</option>
+                <option value="8">Science</option>
+            </select>
+
+            <label for="hobby"><b>Enter three Hobbies</b></label>
+            <input type="text" placeholder="Hobby" name="hobby1" required>
+            <input type="text" placeholder="Hobby" name="hobby2" required>
+            <input type="text" placeholder="Hobby" name="hobby3" required>
+
+            <label for="gpa"><b>Select your Personality</b></label>
+            <select type="text" id="dropBox" onchange="changeSelect()"> 
+                <option value="1">Agreeableness</option>
+                <option value="2">Conscientiousness</option>
+                <option value="3">Extraversion</option>
+                <option value="4">Neuroticism</option>
+                <option value="5">Openness</option>
+            </select>
+
+            <label for="city"><b>City</b></label>
+            <input type="text" placeholder="City" name="City" required>
+
+            <label for="Country"><b>Country</b></label>
+            <input type="text" placeholder="Country" name="Country" required>
+
+            <button type="submit">Register</button>
+          </div>
+    </form>
+
+</body>
+</html>
+<%- include('footer') -%>
