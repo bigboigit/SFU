@@ -13,7 +13,7 @@ router.get('/', async function (req, res, next) {
     .join('users', {
       'inventory.owner': 'users.id'
     })
-    .select('market.id', 'users.username', 'market.price')
+    .select('market.id', 'users.username', 'market.price', 'users.id as userId')
     .orderBy('market.id', 'asc');
 
   // friend table
@@ -51,9 +51,9 @@ router.post('/buy', function (req, res, next) {
 
   console.log(req.body);
 
-  res.redirect('/');
+  return res.redirect('/');
 
-  knex('market').where('id', req.body.id).del()
+  knex('market').where('id', req.body.marketid).del()
 
   knex('inventory').insert({
     owner: req.user.id,

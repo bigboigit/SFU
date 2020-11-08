@@ -1,29 +1,69 @@
 <%- include('header') -%>
 
 <div class="container">
-  <h1>Project Marketplace</h1>
+  <h1 class="d-flex justify-content-center">Friend Marketplace</h1>
   <form id="buy-form" action="/market/buy" method="POST">
     <input type="hidden" name="friend" id="friend-input">
-    <input type="hidden" name="id" id="market-input">
+    <input type="hidden" name="marketid" id="market-input">
   </form>
 
   <div>
-    <% for(let i=0; i<friends.length; i++) {%>
-    <section>
-      <div>Name: <% friends[i].username %> </div>
-      <div>GPA: <% friends[i].gpa %></div>
-      <div>Program: <% friends[i].program %></div>
-      <div>Hobbies: <% friends[i].hobbies %></div>
-      <div>Personality: <% friends[i].personality %></div>
-      <div>City: <% friends[i].city %></div>
-      <div>Country: <% friends[i].country %></div>
-      <div>Price: <% friends[i].price %></div>
-      <div>Sold By: <% owners[i].username %></div>
-      <button class="buy-button" data-friend=<% friends[i].user_id %> data-market=<% friends[i].id %>>Buy</button>
-    </section>
+    <div class="row d-flex justify-content-center">
+      <% for(let i=0; i<friends.length; i++) {%>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="/login_image.jpg" alt="A friend" loading="lazy">
+        <div class="card-body">
+          <h5 class="card-title"><%- friends[i].username -%></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>GPA:</span>
+            <span><%- friends[i].gpa -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Program:</span>
+            <span><%- friends[i].gpa -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Hobbies:</span>
+            <span><%- friends[i].hobbies -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Personality:</span>
+            <span><%- friends[i].personality -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>City:</span>
+            <span><%- friends[i].city -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Country:</span>
+            <span><%- friends[i].country -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Price:</span>
+            <span><%- friends[i].price -%></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Sold By:</span>
+            <a href=/profile/<%- owners[i].userId -%>><%- owners[i].username -%></a>
+          </li>
+        </ul>
+        <div class="card-body">
+          <button class="btn btn-primary buy-button" title="Buy friend" data-friend=<%- friends[i].user_id -%>
+            data-market=<%- friends[i].id -%>>Buy</button>
+        </div>
+      </div>
     <% } %>
+    </div>
   </div>
 </div>
+
+<style>
+  .list-group-item {
+    padding: 0.5rem;
+  }
+</style>
 
 <script>
   window.addEventListener('load', () => {
@@ -32,7 +72,7 @@
     let market = document.getElementById('market-input');
     document.querySelectorAll('button.buy-button')
       .forEach(button => {
-        button.addEventListener('submit', e => {
+        button.addEventListener('click', e => {
           e.preventDefault();
           friend.value = button.dataset.friend;
           market.value = button.dataset.market;
