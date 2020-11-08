@@ -1,4 +1,5 @@
 const LocalStrategy = require("passport-local").Strategy;
+const { select } = require("./databases");
 const knex = require('./databases');
 
 function initialize(passport) {
@@ -12,9 +13,14 @@ function initialize(passport) {
         knex('users')
             .select('username')
             .where({
-                username: username
+                username: username,
+                password: password
             })
-            .then()
+            .then(result => {
+                //check len == 0?
+                const user = {...result[0]}//fill in user data
+                return done(null, user)
+            })
             .catch(err => {
                 return done(null, false, {
                     message: "Username or password incorrect"
@@ -35,9 +41,17 @@ function initialize(passport) {
     passport.serializeUser((user, done) => done(null, user));
 
     passport.deserializeUser((user,done) => {
-        //Query database for user
-        //If does not exist return done(err)
-        //If exists return done(null, user)
+        knex('users')
+            .select('username')
+            .where({
+                username: user.path.to.uname,
+            })
+            .then(result => {
+                return done(null, user)
+            })
+            .catch(err => {
+                return done(err);
+            })
     })
 }
 
