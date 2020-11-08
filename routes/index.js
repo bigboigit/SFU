@@ -36,6 +36,7 @@ router.post('/signup', function(req, res, next) {
     personality:   req.body.personality,
     city:          req.body.city,
     country:       req.body.country,
+    pref_gpa:      req.body.pref_gpa,
     fas:           req.body.fas,
     arts:          req.body.arts,
     bus:           req.body.bus,
