@@ -4,20 +4,17 @@ const knex = require('./databases');
 
 function initialize(passport) {
     const authenticateUser = (req, username, password, done) => {
-        /* Authentication steps */
-        // Query for username
-        //If len>0
-        // intialize user object with all the data;
-        //if password matches return done
-        //othwerise return incorrect
+
         knex('users')
-            .select('username')
+            .select('*')
             .where({
                 username: username,
                 password: password
             })
             .then(result => {
-                //check len == 0?
+                if(result.length == 0){
+                    throw Error('no results');
+                }
                 const user = {...result[0]}//fill in user data
                 return done(null, user)
             })
@@ -41,10 +38,11 @@ function initialize(passport) {
     passport.serializeUser((user, done) => done(null, user));
 
     passport.deserializeUser((user,done) => {
+        console.log(`Deserialize: ${user}`);
         knex('users')
             .select('username')
             .where({
-                username: user.path.to.uname,
+                username: 'user.username'
             })
             .then(result => {
                 return done(null, user)

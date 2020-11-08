@@ -38,12 +38,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-function checkAuthenticated(req, res, next) {
-  if(req.isAuthenticated()) {
-    return res.redirect('/market') //On succesful login redirect to first page
-  }
-  next();
-}
 function checkNotAuthenticated(req, res, next) {
   if(req.isAuthenticated()){
     return next();
@@ -52,7 +46,6 @@ function checkNotAuthenticated(req, res, next) {
 }
 app.use( (req, res, next) => {
     res.locals.passport = passport;
-    res.locals.checkAuthenticated = checkAuthenticated;
     next()
   }
 )
