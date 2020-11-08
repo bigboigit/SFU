@@ -133,8 +133,14 @@ router.post('/buy', function (req, res, next) {
 // put on marketplace
 router.post('/sell', function (req, res, next) {
   knex('market').insert({
-    friendship: req.query.friend,
-    price: req.query.price
+    friendship: req.body.friend,
+    price: req.body.price
+  }).then(result => {
+    return res.redirect('/market');
+  }).catch(err => {
+    console.error(err);
+    req.flash("info", "error selling your person");
+    return res.redirect('/market');
   })
 });
 

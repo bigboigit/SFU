@@ -1,78 +1,91 @@
 <%- include('header') -%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <style>
-    body {
-    border-radius: 10px
-}
+        body {
+            border-radius: 10px
+        }
 
-.card {
-    width: 400px;
-    border: none;
-    border-radius: 10px;
-    background-color: #28a745
-}
+        .card {
+            width: 400px;
+            border: none;
+            border-radius: 10px;
+            background-color: #28a745
+        }
 
-.stats {
-    background: #f2f5f8 !important;
-    color: #000 !important
-}
+        .stats {
+            background: #f2f5f8 !important;
+            color: #000 !important
+        }
 
-.articles {
-    font-size: 10px;
-    color: #a1aab9
-}
+        .articles {
+            font-size: 10px;
+            color: #a1aab9
+        }
 
-.number1 {
-    font-weight: 500
-}
+        .number1 {
+            font-weight: 500
+        }
 
-.followers {
-    font-size: 10px;
-    color: #a1aab9
-}
+        .followers {
+            font-size: 10px;
+            color: #a1aab9
+        }
 
-.number2 {
-    font-weight: 500
-}
+        .number2 {
+            font-weight: 500
+        }
 
-.rating {
-    font-size: 10px;
-    color: #a1aab9
-}
+        .rating {
+            font-size: 10px;
+            color: #a1aab9
+        }
 
-.number3 {
-    font-weight: 500
-}
+        .number3 {
+            font-weight: 500
+        }
     </style>
 </head>
+
 <body>
+    <form action="/market/sell" method="POST" id="form-sell">
+        <input type="hidden" name="price" id="price">
+        <input type="hidden" name="friend" id="friend">
+    </form>
     <% if(me) { %>
-        <!--My card-->
-        <div class="container mt-5 d-flex justify-content-center">
-            <div class="card p-3" style="background-color: gold;">
-                <div class="d-flex align-items-center">
-                    <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
-                    <div class="ml-3 w-100">
-                        <h4 class="mb-0 mt-0"><%- me.username -%></h4> <span><%- me.personality -%></span>
-                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="Friends">Friends</span> <span class="number1"><%- friends.length -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Credit</span> <span class="number3"><%- me.credits -%></span> </div>
-                        </div>
-                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="followers">GPA</span> <span class="number2"><%- me.gpa -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Major</span> <span class="number2"><%- me.program -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Country</span> <span class="number3"><%- me.country -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">City</span> <span class="number3"><%- me.city -%></span> </div>
-                        </div>
+    <!--My card-->
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card p-3" style="background-color: gold;">
+            <div class="d-flex align-items-center">
+                <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
+                <div class="ml-3 w-100">
+                    <h4 class="mb-0 mt-0"><%- me.username -%></h4> <span><%- me.personality -%></span>
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="Friends">Friends</span> <span
+                                class="number1"><%- friends.length -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Credit</span> <span
+                                class="number3"><%- me.credits -%></span> </div>
+                    </div>
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="followers">GPA</span> <span
+                                class="number2"><%- me.gpa -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Major</span> <span
+                                class="number2"><%- me.program -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Country</span> <span
+                                class="number3"><%- me.country -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">City</span> <span
+                                class="number3"><%- me.city -%></span> </div>
                     </div>
                 </div>
-                <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     Hobbies
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -80,49 +93,68 @@
                     <span class="dropdown-item-text"><%- me.hobbies[index] -%></span>
                     <% } %>
                 </div>
-                </div>
-                </div>
-                
+            </div>
         </div>
-        <!-- Friends cards-->
-        <% for( let i = 0; i < friends.length; i++ ) { %>
-        <div class="container mt-5 d-flex justify-content-center">
-            <div class="card p-3">
-                <div class="d-flex align-items-center">
-                    <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
-                    <div class="ml-3 w-100">
-                        <h4 class="mb-0 mt-0"><%- friends[i].username -%></h4> <span><%- friends[i].personality -%></span>
-                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="followers">Tier</span> <span class="number2"><%- values[i] -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Credit</span> <span class="number3"><%- friends[i].credits -%></span> </div>
-                        </div>
-                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="followers">GPA</span> <span class="number2"><%- friends[i].gpa -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Major</span> <span class="number2"><%- friends[i].program -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Country</span> <span class="number3"><%- friends[i].country -%></span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">City</span> <span class="number3"><%- friends[i].city -%></span> </div>
-                        </div>
+
+    </div>
+    <!-- Friends cards-->
+    <% for( let i = 0; i < friends.length; i++ ) { %>
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card p-3">
+            <div class="d-flex align-items-center">
+                <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
+                <div class="ml-3 w-100">
+                    <h4 class="mb-0 mt-0"><%- friends[i].username -%></h4> <span><%- friends[i].personality -%></span>
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="followers">Tier</span> <span
+                                class="number2"><%- values[i] -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Credit</span> <span
+                                class="number3"><%- friends[i].credits -%></span> </div>
                     </div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hobbies
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <% for( let j = 0; j < friends[i].hobbies.length; j++ ) { %>
-                            <span class="dropdown-item-text"><%- friends[i].hobbies[j] -%></span>
-                            <% } %>
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="d-flex flex-column"> <span class="followers">GPA</span> <span
+                                class="number2"><%- friends[i].gpa -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Major</span> <span
+                                class="number2"><%- friends[i].program -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Country</span> <span
+                                class="number3"><%- friends[i].country -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">City</span> <span
+                                class="number3"><%- friends[i].city -%></span> </div>
                     </div>
                 </div>
             </div>
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Hobbies
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <% for( let j = 0; j < friends[i].hobbies.length; j++ ) { %>
+                    <span class="dropdown-item-text"><%- friends[i].hobbies[j] -%></span>
+                    <% } %>
+                </div>
+            </div>
         </div>
-        <% } %> 
+    </div>
+    <button class="sell-button" data-price=<%- friends[i].price -%> data-friend=<%- friends[i].id -%>>Sell</button>
+    <% } %>
     <% } else { %>
-        <h2>
-            Person was not found
-        </h2>
+    <h2>
+        Person was not found
+    </h2>
     <% } %>
 </body>
+
 </html>
 <h1></h1>
+
+<script>
+    window.addEventListener('load', function () {
+        const buttons = document.querySelectorAll('.sell-button').forEach(button => {
+            document.getElementById('price').value = button.dataset.price;
+            document.getElementById('friend').value = button.dataset.friend;
+            document.getElementById('form-sell').submit();
+        });
+    });
+</script>
 <%- include('footer') -%>
