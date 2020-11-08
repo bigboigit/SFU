@@ -81,7 +81,11 @@ router.post('/signup', function(req, res, next) {
   }).then(result => {
     req.flash('info', 'Please log in');
     res.redirect('/login');
-  })
+  }).catch(err => {
+    console.error(err);
+    req.flash('info', "Error signing up. Try again.");
+    res.redirect('/signup');
+  });
 });
 
 module.exports = router;
