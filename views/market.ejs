@@ -9,6 +9,9 @@
 
   <div>
     <div class="row d-flex justify-content-center">
+      <% if (friends.length === 0) { %>
+      <span>There are no friends on sale</span>
+      <% }%>
       <% for(let i=0; i<friends.length; i++) {%>
       <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="/login_image.jpg" alt="A friend" loading="lazy">
@@ -54,7 +57,7 @@
             data-market=<%- friends[i].id -%>>Buy</button>
         </div>
       </div>
-    <% } %>
+      <% } %>
     </div>
   </div>
 </div>
