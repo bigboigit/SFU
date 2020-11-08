@@ -30,6 +30,7 @@ router.get('/', async function(req, res, next) {
     .select('users.username')
     .where('inventory.owner', req.user.id);
 
+  //const friendsCount = await knex('inventory')
   
     
   res.render('profile', {
