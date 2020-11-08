@@ -115,7 +115,8 @@ router.post('/buy', function (req, res, next) {
 
   console.log(req.body);
 
-  knex('market')
+  if (req.user.credits > req.body.price) {
+    knex('market')
     .where('id', req.body.marketid)
     .del()
     .then(result => {
@@ -128,6 +129,12 @@ router.post('/buy', function (req, res, next) {
       req.flash('info', 'You bought them');
       return res.redirect('/profile');
     });
+  }
+  else {
+    req.flash('info', 'You do not have enough money');
+    return res.redirect('/market');
+  }
+
 });
 
 // put on marketplace
