@@ -4,11 +4,20 @@ var router = express.Router();
 const knex = require('../databases');
 
 /* GET users listing. */
-router.get('/:pid', function(req, res, next) {
+router.get('/:pid', async function(req, res, next) {
   console.log(req.params.pid)
+  const profileowner = await knex('users')
+    .select('*')
+    .where({
+      id: req.params.pid
+    })
+    .catch(err => {
+      return null
+    })
+  
   res.render('profile', {
     title: req.params.pid,
-
+    me: (profileowner)? ((profileowner.length==0)? null: profileowner[0]) : null
   });
 });
 

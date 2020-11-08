@@ -51,6 +51,7 @@
     </style>
 </head>
 <body>
+    <% if(me) { %>
     <!--My card-->
     <div class="container mt-5 d-flex justify-content-center">
         <div class="card p-3" style="background-color: gold;">
@@ -125,7 +126,12 @@
                 </div>
               </div>
             </div>
-    </div>
+    </div> 
+    <% } else { %>
+        <h2>
+            Person was not found
+        </h2>
+    <% } %>
 </body>
 </html>
 <h1></h1>
