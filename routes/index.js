@@ -5,16 +5,16 @@ const knex = require('../databases');
 
 function checkAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
-    return res.redirect('/market') //On succesful login redirect to first page
+    return res.redirect('/'); //On succesful login redirect to first page
   }
   next();
 }
 /* GET home page. */
-router.get('/', checkAuthenticated, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: "Let's Exchange A Friend (LEAF)" });
 });
 
-router.get('/login', checkAuthenticated, function(req, res, next) {
+router.get('/login', function(req, res, next) {
   res.render('login', { title: "Log in" });
 });
 
@@ -34,7 +34,9 @@ router.post('/login', function(req, res, next) {
         return next(err);
       }
       req.flash('info', 'You are logged in');
-      return res.redirect('/market'); //or whichever page should be the first page
+      const redirect = req.session.redirectTo;
+      delete req.session.redirectTo;
+      return res.redirect(redirect || '/'); //or whichever page should be the first page
     })
   })(req, res, next);
 });
