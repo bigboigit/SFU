@@ -60,6 +60,21 @@ const knex = require('knex')({
       // calculating distance might be a yikes.
       table.string('city').notNullable();
       table.string('country').notNullable();
+      // program preferences
+      table.integer('as').notNullable();
+      table.integer('arts').notNullable();
+      table.integer('bus').notNullable();
+      table.integer('comm').notNullable();
+      table.integer('educ').notNullable();
+      table.integer('env').notNullable();
+      table.integer('hsci').notNullable();
+      table.integer('sci').notNullable();
+      // personality preferences
+      table.integer('agreeable').notNullable();
+      table.integer('conscientious').notNullable();
+      table.integer('extravert').notNullable();
+      table.integer('neurotic').notNullable();
+      table.integer('open').notNullable();
     });
   }
 
