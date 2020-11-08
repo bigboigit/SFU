@@ -58,7 +58,7 @@ router.post('/signup', function(req, res, next) {
   knex ('users').insert({
     username:      req.body.uname,
     password:      req.body.psw,
-    credits:       req.body.credits,
+    credits:       100,
     gpa:           req.body.gpa,
     program:       req.body.program,
     hobbies:       hobbies,
