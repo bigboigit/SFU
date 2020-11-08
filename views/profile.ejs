@@ -51,28 +51,29 @@
     </style>
 </head>
 <body>
+    <!--My card-->
     <div class="container mt-5 d-flex justify-content-center">
         <div class="card p-3">
             <div class="d-flex align-items-center">
                 <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
                 <div class="ml-3 w-100">
-                    <h4 class="mb-0 mt-0">username</h4> <span>username</span>
+                    <h4 class="mb-0 mt-0"><%- me.username -%></h4> <span>username</span>
                     <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="Friends">Friends</span> <span class="number1">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Tier</span> <span class="number2">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Credit</span> <span class="number3">1</span> </div>
+                        <div class="d-flex flex-column"> <span class="Friends">Friends</span> <span class="number1">unknown</span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Tier</span> <span class="number2">unkown</span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Credit</span> <span class="number3"><%- me.credits -%></span> </div>
                     </div>
                     <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="followers">GPA</span> <span class="number2">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Major</span> <span class="number2">CS</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Country</span> <span class="number3">Canada</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">City</span> <span class="number3">Van</span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">GPA</span> <span class="number2"><%- me.gpa -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Major</span> <span class="number2"><%- me.program -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">Country</span> <span class="number3"><%- me.country -%></span> </div>
+                        <div class="d-flex flex-column"> <span class="followers">City</span> <span class="number3"><%- me.city -%></span> </div>
                     </div>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Personality
+                    <%- me.personality -%>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <span class="dropdown-item-text"></span>
@@ -83,13 +84,12 @@
               </div>
               <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Personality
+                    Hobbies
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <span class="dropdown-item-text"></span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
+                    <% for( let index = 0; index < me.hobbies.length; index++ ) { %>
+                    <span class="dropdown-item-text"><%- me.hobbies[index] -%></span>
+                    <% } %>
                 </div>
               </div>
             </div>
@@ -137,50 +137,6 @@
                 </div>
               </div>
             </div>
-    </div>
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="card p-3">
-            <div class="d-flex align-items-center">
-                <div class="image"> <img src="/login_image.jpg" class="rounded" width="155"> </div>
-                <div class="ml-3 w-100">
-                    <h4 class="mb-0 mt-0">username</h4> <span>username</span>
-                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="Friends">Friends</span> <span class="number1">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Tier</span> <span class="number2">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Credit</span> <span class="number3">1</span> </div>
-                    </div>
-                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                        <div class="d-flex flex-column"> <span class="followers">GPA</span> <span class="number2">1</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Major</span> <span class="number2">CS</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">Country</span> <span class="number3">Canada</span> </div>
-                        <div class="d-flex flex-column"> <span class="followers">City</span> <span class="number3">Van</span> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Personality
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <span class="dropdown-item-text"></span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                </div>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Personality
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <span class="dropdown-item-text"></span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                    <span class="dropdown-item-text">Dropdown item text</span>
-                </div>
-              </div>
-            </div>
-            
     </div>
 </body>
 </html>

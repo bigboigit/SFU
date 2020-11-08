@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const knex = require('../databases');
+
 /* GET users listing. */
 router.get('/:pid', function(req, res, next) {
   console.log(req.params.pid)
@@ -11,9 +13,20 @@ router.get('/:pid', function(req, res, next) {
 });
 
 /* GET user's own profile */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
+  const friends = await knex('inventory')
+    .join('users', {
+      'inventory.owner': 'users.id'
+    })
+    .select('users.username')
+    .where('inventory.owner', req.user.id);
+
+  
+    
   res.render('profile', {
-    title: 'Profile Page'
+    title: req.user.username,
+    me: req.user,
+    friends: friends
   });
 });
 
