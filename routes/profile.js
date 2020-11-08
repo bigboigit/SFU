@@ -25,18 +25,14 @@ router.get('/:pid', async function(req, res, next) {
 router.get('/', async function(req, res, next) {
   const friends = await knex('inventory')
     .join('users', {
-      'inventory.owner': 'users.id'
+      'inventory.friend': 'users.id'
     })
-    .select('users.username')
+    .select('*')
     .where('inventory.owner', req.user.id);
-
-  //const friendsCount = await knex('inventory')
-  
     
   res.render('profile', {
     title: req.user.username,
-    me: req.user,
-    friends: friends
+    me: req.user
   });
 });
 
