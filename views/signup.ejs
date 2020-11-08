@@ -93,7 +93,7 @@
             if (!match) {
                 e.preventDefault();
             }
-            if (document.getElementById('confirmPassword').value !== document.getElementById('password')) {
+            if (document.getElementById('confirmPassword').value !== document.getElementById('password').value) {
                 alert("Your passwords don't match");
                 match = false;
             } else {
