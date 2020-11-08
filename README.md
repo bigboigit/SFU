@@ -3,6 +3,10 @@ SFU 2020 Hackathon
 
 ## Installations
 
+###
+
+https://letsexchangeafriend.herokuapp.com/
+
 ### Local
 
 First, you need:
