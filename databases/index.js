@@ -61,7 +61,7 @@ const knex = require('knex')({
       table.string('city').notNullable();
       table.string('country').notNullable();
       // program preferences
-      table.integer('as').notNullable();
+      table.integer('fas').notNullable();
       table.integer('arts').notNullable();
       table.integer('bus').notNullable();
       table.integer('comm').notNullable();
