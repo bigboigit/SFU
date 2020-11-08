@@ -91,7 +91,7 @@ router.post('/signup', function(req, res, next) {
     .then(resulttt => {
         knex ('market').insert({
           friendship: resulttt[0].id,
-          price: Math.floor(Math.random() * 20)
+          price: 5
         }).then(result => {
         });
     });
