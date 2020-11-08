@@ -153,7 +153,9 @@
         const buttons = document.querySelectorAll('.sell-button').forEach(button => {
             document.getElementById('price').value = button.dataset.price;
             document.getElementById('friend').value = button.dataset.friend;
-            document.getElementById('form-sell').submit();
+            button.addEventListener('click', e => {
+                document.getElementById('form-sell').submit();
+            });
         });
     });
 </script>
