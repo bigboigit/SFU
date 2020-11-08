@@ -1,93 +1,108 @@
 <%- include('header') -%>
-<!DOCTYPE html>
-<html>
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/stylesheets/signup.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<h1 id="appTitle">Sign Up</h1>
 
-    <h1 id="appTitle">Sign Up</h1>
+<form action="/signup" method="post">
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
 
-    <form action="/signup" method="post">
-        <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
-          
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required id="password">
 
-            <label for="confpsw"><b>Confirm Password</b></label>
-            <input type="password" placeholder="Confirm Password" name="confpsw" required>
+        <label for="confpsw"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Password" name="confpsw" required id="confirmPassword">
 
-            <label for="gpa"><b>GPA</b></label>
-            <input type="gpa" placeholder="GPA" name="gpa" required type="number">
+        <label for="gpa"><b>GPA</b></label>
+        <input type="number" placeholder="GPA" name="gpa" required min="0">
 
-            <label for="gpaScale"><b>GPA Scale</b></label>
-            <input type="gpa" placeholder="GPA" name="gpaScale" required>
-        
-            <label for="gpa"><b>Select your Faculty</b></label>
-            <select type="text" id="dropBox" onchange="changeSelect()" name = "program"> 
-                <option value="1">Applied Science</option>
-                <option value="2">Arts and Social Sciences</option>
-                <option value="3">Business</option>
-                <option value="4">Communication, Art, and Technology</option>
-                <option value="5">Education</option>
-                <option value="6">Environment</option>
-                <option value="7">Health Sciences</option>
-                <option value="8">Science</option>
-            </select>
+        <label for="gpaScale"><b>GPA Scale</b></label>
+        <input type="text" placeholder="GPA" name="gpaScale" required>
 
-            <label for="hobby"><b>Enter three Hobbies</b></label>
-            <input type="text" placeholder="Hobby" name="hobby1" required>
-            <input type="text" placeholder="Hobby" name="hobby2" required>
-            <input type="text" placeholder="Hobby" name="hobby3" required>
+        <label for="gpa"><b>Select your Faculty</b></label>
+        <select type="text" id="dropBox" onchange="changeSelect()" name="program">
+            <option value="1">Applied Science</option>
+            <option value="2">Arts and Social Sciences</option>
+            <option value="3">Business</option>
+            <option value="4">Communication, Art, and Technology</option>
+            <option value="5">Education</option>
+            <option value="6">Environment</option>
+            <option value="7">Health Sciences</option>
+            <option value="8">Science</option>
+        </select>
 
-            <label for="gpa"><b>Select your Personality</b></label>
-            <select type="text" id="dropBox" onchange="changeSelect()" name = "personality"> 
-                <option value="1">Agreeableness</option>
-                <option value="2">Conscientiousness</option>
-                <option value="3">Extraversion</option>
-                <option value="4">Neuroticism</option>
-                <option value="5">Openness</option>
-            </select>
+        <label for="hobby"><b>Enter three Hobbies</b></label>
+        <input type="text" placeholder="Hobby" name="hobby1" required>
+        <input type="text" placeholder="Hobby" name="hobby2" required>
+        <input type="text" placeholder="Hobby" name="hobby3" required>
 
-            <label for="city"><b>City</b></label>
-            <input type="text" placeholder="City" name="City" required>
+        <label for="gpa"><b>Select your Personality</b></label>
+        <select type="text" id="dropBox" onchange="changeSelect()" name="personality">
+            <option value="1">Agreeableness</option>
+            <option value="2">Conscientiousness</option>
+            <option value="3">Extraversion</option>
+            <option value="4">Neuroticism</option>
+            <option value="5">Openness</option>
+        </select>
 
-            <label for="Country"><b>Country</b></label>
-            <input type="text" placeholder="Country" name="Country" required>
+        <label for="city"><b>City</b></label>
+        <input type="text" placeholder="City" name="City" required>
 
-            <h1 id="appTitle">Select Preferences</h1>
+        <label for="Country"><b>Country</b></label>
+        <input type="text" placeholder="Country" name="Country" required>
 
-            <label for="Preferred GPA"><b>Preferred GPA</b></label>
-            <input type="number" placeholder="Preferred GPA" name="Preferred GPA" required>
+        <h1 id="appTitle">Select Preferences</h1>
 
-            <label for="Preferred Faculty"><b>Rank these faculties from least favorite to most favorite</b></label>
-            <label for="Preferred Faculty"><b>1 = Applied Science, 2 = Arts and social science ... 8 = Science</b></label>
-            <label for="Preferred Faculty"><b>Applied Science</b></label>
-            <label for="Preferred Faculty"><b>Arts and Social Sciences</b></label>
-            <label for="Preferred Faculty"><b>Business</b></label>
-            <label for="Preferred Faculty"><b>Communication, Art, and Technology</b></label>
-            <label for="Preferred Faculty"><b>Education</b></label>
-            <label for="Preferred Faculty"><b>Environment</b></label>
-            <label for="Preferred Faculty"><b>Health Sciences</b></label>
-            <label for="Preferred Faculty"><b>Science</b></label>
-            <input type="text" placeholder="Enter a String of numbers (e.g 12354678, 87512346)" name="Preferred GPA" required type="number">
+        <label for="Preferred GPA"><b>Preferred GPA</b></label>
+        <input type="number" placeholder="Preferred GPA" name="Preferred GPA" required>
 
-            <label for="Preferred Personality"><b>Rank these Personalities from least favorite to most favorite</b></label>
-            <label for="Preferred Personality"><b>1 = Agreeableness, 2 = Conscientiousness ... 5 = Openness</b></label>
-            <label for="Preferred Personality"><b>Agreeableness</b></label>
-            <label for="Preferred Personality"><b>Conscientiousness</b></label>
-            <label for="Preferred Personality"><b>Extraversion</b></label>
-            <label for="Preferred Personality"><b>Neuroticism</b></label>
-            <label for="Preferred Personality"><b>Openness</b></label>
-            <input type="text" placeholder="Enter a String of numbers (e.g 15432, 25413)" name="Preferred GPA" required type="number">
+        <label for="prefgpa"><b>Rank these faculties from least favorite to most favorite</b></label>
+        <label for="prefgpa"><b>1 = Applied Science, 2 = Arts and social science ... 8 = Science</b></label>
+        <label for="prefgpa"><b>Applied Science</b></label>
+        <label for="prefgpa"><b>Arts and Social Sciences</b></label>
+        <label for="prefgpa"><b>Business</b></label>
+        <label for="prefgpa"><b>Communication, Art, and Technology</b></label>
+        <label for="prefgpa"><b>Education</b></label>
+        <label for="prefgpa"><b>Environment</b></label>
+        <label for="prefgpa"><b>Health Sciences</b></label>
+        <label for="prefgpa"><b>Science</b></label>
+        <input type="text" placeholder="Enter a String of numbers (e.g 12354678, 87512346)" name="Preferred GPA"
+            required type="number" min="12345678" minlength="8" maxlength="8" max="87654321" id="prefgpa">
 
-            <button type="submit">Register</button>
-          </div>
-    </form>
+        <label for="prefgpa2"><b>Rank these Personalities from least favorite to most favorite</b></label>
+        <label for="prefgpa2"><b>1 = Agreeableness, 2 = Conscientiousness ... 5 = Openness</b></label>
+        <label for="prefgpa2"><b>Agreeableness</b></label>
+        <label for="prefgpa2"><b>Conscientiousness</b></label>
+        <label for="prefgpa2"><b>Extraversion</b></label>
+        <label for="prefgpa2"><b>Neuroticism</b></label>
+        <label for="prefgpa2"><b>Openness</b></label>
+        <input type="text" placeholder="Enter a String of numbers (e.g 15432, 25413)" name="Preferred GPA" required
+            type="number" min="12345" minlength="5" maxlength="5" max="54321" id="prefgpa2">
 
-</body>
-</html>
+        <button type="submit">Register</button>
+    </div>
+</form>
+
+<script>
+    window.addEventListener('load', function () {
+        let match = false;
+        document.querySelector('form').addEventListener('submit', function (e) {
+            if (!match) {
+                e.preventDefault();
+            }
+            if (document.getElementById('confirmPassword').value !== document.getElementById('password')) {
+                alert("Your passwords don't match");
+                match = false;
+            } else {
+                match = true;
+                e.target.submit();
+            } 
+        });
+    });
+</script>
+
+
 <%- include('footer') -%>
