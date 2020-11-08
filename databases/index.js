@@ -61,7 +61,7 @@ const knex = require('knex')({
       table.string('city').notNullable();
       table.string('country').notNullable();
       // gpa preference
-      table.integer('pref_gpa').notNullable();
+      table.float('pref_gpa').notNullable();
       // program preferences
       table.integer('fas').notNullable();
       table.integer('arts').notNullable();
