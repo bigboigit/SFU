@@ -50,8 +50,12 @@ function checkNotAuthenticated(req, res, next) {
   }
   res.redirect('/login');
 }
-res.locals.passport = passport 
-res.locals.checkAuthenticated = checkAuthenticated;
+app.use( (req, res, next) => {
+    res.locals.passport = passport;
+    res.locals.checkAuthenticated = checkAuthenticated;
+    next()
+  }
+)
 app.use('/', indexRouter);
 app.use('/market', checkNotAuthenticated, marketRouter);
 app.use('/profile', checkNotAuthenticated, profileRouter);

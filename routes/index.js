@@ -8,8 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-//check authenticated reroutes you into our app if already logged in
-router.get('/login', res.locals.checkAuthenticated, function(req, res, next) {
+router.get('/login', function(req, res, next) {
   res.render('login', { title: "Log in" });
 });
 
