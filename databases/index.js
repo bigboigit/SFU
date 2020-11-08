@@ -26,13 +26,20 @@ const knex = require('knex')({
       testcolumn2: true
     });
   }
-  knex('test')
+  await knex('test')
     .select('testcolumn')
     .where({
       testcolumn2: true
     })
     .then(result => {
       console.log("database test result: ", result);
+    })
+    .then(() => {
+      return knex.schema.dropTableIfExists('test');
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
     });
 
   // put more tables here
@@ -40,7 +47,7 @@ const knex = require('knex')({
   if (!await knex.schema.hasTable('users')) {
     await knex.schema.createTable('users', table => {
       table.increments('id');
-      table.string('username').notNullable();
+      table.string('username').notNullable().unique();
       table.string('password').notNullable();
       table.integer('credits');
 
@@ -53,6 +60,21 @@ const knex = require('knex')({
       // calculating distance might be a yikes.
       table.string('city').notNullable();
       table.string('country').notNullable();
+      // program preferences
+      table.integer('as').notNullable();
+      table.integer('arts').notNullable();
+      table.integer('bus').notNullable();
+      table.integer('comm').notNullable();
+      table.integer('educ').notNullable();
+      table.integer('env').notNullable();
+      table.integer('hsci').notNullable();
+      table.integer('sci').notNullable();
+      // personality preferences
+      table.integer('agreeable').notNullable();
+      table.integer('conscientious').notNullable();
+      table.integer('extravert').notNullable();
+      table.integer('neurotic').notNullable();
+      table.integer('open').notNullable();
     });
   }
 

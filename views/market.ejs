@@ -1,0 +1,44 @@
+<%- include('header') -%>
+
+<div class="container">
+  <h1>Project Marketplace</h1>
+  <form id="buy-form" action="/market/buy" method="POST">
+    <input type="hidden" name="friend" id="friend-input">
+    <input type="hidden" name="id" id="market-input">
+  </form>
+
+  <div>
+    <% for(let i=0; i<friends.length; i++) {%>
+    <section>
+      <div>Name: <% friends[i].username %> </div>
+      <div>GPA: <% friends[i].gpa %></div>
+      <div>Program: <% friends[i].program %></div>
+      <div>Hobbies: <% friends[i].hobbies %></div>
+      <div>Personality: <% friends[i].personality %></div>
+      <div>City: <% friends[i].city %></div>
+      <div>Country: <% friends[i].country %></div>
+      <div>Price: <% friends[i].price %></div>
+      <div>Sold By: <% owners[i].username %></div>
+      <button class="buy-button" data-friend=<% friends[i].user_id %> data-market=<% friends[i].id %>>Buy</button>
+    </section>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    let form = document.getElementById('buy-form');
+    let friend = document.getElementById('friend-input');
+    let market = document.getElementById('market-input');
+    document.querySelectorAll('button.buy-button')
+      .forEach(button => {
+        button.addEventListener('submit', e => {
+          e.preventDefault();
+          friend.value = button.dataset.friend;
+          market.value = button.dataset.market;
+          form.submit();
+        });
+      });
+  });
+</script>
+<%- include('footer') -%>
