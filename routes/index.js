@@ -79,9 +79,22 @@ router.post('/signup', function(req, res, next) {
     extravert:     req.body["Preferred GPA"][2][2],
     neurotic:      req.body["Preferred GPA"][2][3],
     open:          req.body["Preferred GPA"][2][4]
-  }).then(result => {
+  }).returning('*')
+  .then(result => {
     req.flash('info', 'Please log in');
     res.redirect('/login');
+    knex ('inventory').insert({
+      owner: result[0].id,
+      friend: result[0].id
+      
+    }).returning('*')
+    .then(resulttt => {
+        knex ('market').insert({
+          friendship: resulttt[0].id,
+          price: Math.floor(Math.random() * 20)
+        }).then(result => {
+        });
+    });
   }).catch(err => {
     console.error(err);
     req.flash('info', "Error signing up. Try again.");
