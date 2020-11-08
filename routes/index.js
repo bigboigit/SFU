@@ -49,30 +49,31 @@ router.post('/signup', function(req, res, next) {
   /*
   DATABASE ENTRY CREATION GOES HERE
   */
+    const hobbies = [req.body.hobby1, req.body.hobby2, req.body.hobby3]
   knex ('users').insert({
     username:      req.body.uname,
     password:      req.body.passwd,
     credits:       req.body.credits,
     gpa:           req.body.gpa,
     program:       req.body.program,
-    hobbies:       req.body.hobbies,
+    hobbies:       hobbies,
     personality:   req.body.personality,
-    city:          req.body.city,
-    country:       req.body.country,
-    pref_gpa:      req.body.pref_gpa,
-    fas:           req.body.fas,
-    arts:          req.body.arts,
-    bus:           req.body.bus,
-    comm:          req.body.comm,
-    educ:          req.body.educ,
-    env:           req.body.env,
-    hsci:          req.body.hsci,
-    sci:           req.body.sci,
-    agreeable:     req.body.agreeable,
-    conscientious: req.body.conscientious,
-    extravert:     req.body.extravert,
-    neurotic:      req.body.neurotic,
-    open:          req.body.open
+    city:          req.body.City,
+    country:       req.body.Country,
+    pref_gpa:      req.body["Preferred GPA"][0],
+    fas:           req.body["Preferred GPA"][1][0],
+    arts:          req.body["Preferred GPA"][1][1],
+    bus:           req.body["Preferred GPA"][1][2],
+    comm:          req.body["Preferred GPA"][1][3],
+    educ:          req.body["Preferred GPA"][1][4],
+    env:           req.body["Preferred GPA"][1][5],
+    hsci:          req.body["Preferred GPA"][1][6],
+    sci:           req.body["Preferred GPA"][1][7],
+    agreeable:     req.body["Preferred GPA"][2][0],
+    conscientious: req.body["Preferred GPA"][2][1],
+    extravert:     req.body["Preferred GPA"][2][2],
+    neurotic:      req.body["Preferred GPA"][2][3],
+    open:          req.body["Preferred GPA"][2][4]
   })
 });
 
