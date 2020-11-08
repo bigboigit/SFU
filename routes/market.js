@@ -115,25 +115,19 @@ router.post('/buy', function (req, res, next) {
 
   console.log(req.body);
 
-  if (req.user.credits > req.body.price) {
-    knex('market')
-    .where('id', req.body.marketid)
-    .del()
-    .then(result => {
-      return knex('inventory').insert({
-        owner: req.user.id,
-        friend: req.body.friend
-      });
-    })
-    .then(result => {
-      req.flash('info', 'You bought them');
-      return res.redirect('/profile');
+  knex('market')
+  .where('id', req.body.marketid)
+  .del()
+  .then(result => {
+    return knex('inventory').insert({
+      owner: req.user.id,
+      friend: req.body.friend
     });
-  }
-  else {
-    req.flash('info', 'You do not have enough money');
-    return res.redirect('/market');
-  }
+  })
+  .then(result => {
+    req.flash('info', 'You bought them');
+    return res.redirect('/profile');
+  });
 
 });
 
